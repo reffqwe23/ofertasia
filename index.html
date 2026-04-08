@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OfertasIA — Las Mejores Ofertas de España</title>
+<meta name="description" content="Las mejores ofertas de Amazon, Temu, AliExpress y Miravia en un solo lugar. Productos con descuento para España.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f5f2;
+    --surface: #ffffff;
+    --card: #ffffff;
+    --border: #e8e4df;
+    --border2: #d8d3cc;
+    --accent: #e8284a;
+    --accent2: #f97316;
+    --text: #1a1714;
+    --muted: #7c7570;
+    --amazon: #c45500;
+    --temu: #c0392b;
+    --ali: #d4520a;
+    --miravia: #6d28d9;
+    --shadow: 0 2px 12px rgba(0,0,0,0.07);
+    --shadow-hover: 0 8px 28px rgba(0,0,0,0.13);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; min-height:100vh; overflow-x:hidden; }
+
+  /* HEADER */
+  header { position:sticky; top:0; z-index:100; background:rgba(255,255,255,0.93); backdrop-filter:blur(16px); border-bottom:1px solid var(--border); padding:0 1rem; box-shadow:0 1px 8px rgba(0,0,0,0.06); }
+  .header-inner { max-width:1400px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; height:60px; gap:1rem; }
+  .logo { font-family:'Syne',sans-serif; font-weight:800; font-size:1.4rem; color:var(--accent); white-space:nowrap; flex-shrink:0; }
+  .logo span { color:var(--text); }
+  .search-wrap { flex:1; max-width:480px; position:relative; }
+  .search-wrap input { width:100%; background:var(--bg); border:1.5px solid var(--border2); border-radius:50px; padding:.55rem 1rem .55rem 2.5rem; color:var(--text); font-family:'DM Sans',sans-serif; font-size:.9rem; outline:none; transition:border-color .2s,box-shadow .2s; }
+  .search-wrap input:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(232,40,74,.08); }
+  .search-wrap input::placeholder { color:var(--muted); }
+  .search-wrap svg { position:absolute; left:.85rem; top:50%; transform:translateY(-50%); color:var(--muted); }
+
+  /* HERO */
+  .hero { background:linear-gradient(135deg,#fff8f5 0%,#fff5f7 50%,#f8f5ff 100%); border-bottom:1px solid var(--border); padding:2.2rem 1rem; text-align:center; position:relative; overflow:hidden; }
+  .hero::before { content:''; position:absolute; width:500px; height:300px; background:radial-gradient(ellipse,rgba(232,40,74,.07) 0%,transparent 70%); top:-50px; left:50%; transform:translateX(-50%); pointer-events:none; }
+  .hero h1 { font-family:'Syne',sans-serif; font-size:clamp(1.5rem,4.5vw,2.5rem); font-weight:800; line-height:1.15; margin-bottom:.5rem; color:var(--text); position:relative; z-index:1; }
+  .hero h1 em { font-style:normal; color:var(--accent); }
+  .hero p { color:var(--muted); font-size:.95rem; position:relative; z-index:1; margin-bottom:1.2rem; }
+  .store-badges { display:flex; gap:.5rem; justify-content:center; flex-wrap:wrap; position:relative; z-index:1; }
+  .badge { padding:.4rem 1rem; border-radius:50px; font-size:.8rem; font-weight:600; cursor:pointer; transition:all .2s; border:1.5px solid var(--border2); background:white; color:var(--muted); }
+  .badge:hover { border-color:var(--accent); color:var(--accent); }
+  .badge.active { background:var(--accent); color:white; border-color:var(--accent); }
+  .badge.amazon.active  { background:var(--amazon);  border-color:var(--amazon); }
+  .badge.temu.active    { background:var(--temu);    border-color:var(--temu); }
+  .badge.ali.active     { background:var(--ali);     border-color:var(--ali); }
+  .badge.miravia.active { background:var(--miravia); border-color:var(--miravia); }
+
+  /* FILTERS */
+  .filters-bar { max-width:1400px; margin:0 auto; padding:1rem 1rem 0; display:flex; gap:.5rem; overflow-x:auto; scrollbar-width:none; }
+  .filters-bar::-webkit-scrollbar { display:none; }
+  .filter-chip { flex-shrink:0; padding:.4rem 1rem; background:white; border:1.5px solid var(--border2); border-radius:50px; font-size:.82rem; color:var(--muted); cursor:pointer; transition:all .2s; white-space:nowrap; }
+  .filter-chip:hover { border-color:var(--accent); color:var(--accent); }
+  .filter-chip.active { background:var(--text); border-color:var(--text); color:white; }
+
+  /* STATS */
+  .stats-bar { max-width:1400px; margin:.8rem auto 0; padding:0 1rem; display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
+  .stats-bar span { font-size:.82rem; color:var(--muted); }
+  .stats-bar strong { color:var(--text); }
+  .sort-select { background:white; border:1.5px solid var(--border2); border-radius:8px; padding:.38rem .8rem; color:var(--text); font-size:.82rem; font-family:'DM Sans',sans-serif; outline:none; cursor:pointer; }
+
+  /* NOTICE */
+  .affiliate-notice { max-width:1400px; margin:.7rem auto 0; padding:.55rem 1rem; background:#fffbeb; border:1px solid #fde68a; border-radius:10px; font-size:.75rem; color:#92400e; }
+
+  /* GRID */
+  .grid-wrap { max-width:1400px; margin:0 auto; padding:1rem; }
+  .section-title { font-family:'Syne',sans-serif; font-weight:700; font-size:1.05rem; margin-bottom:.9rem; padding-top:.3rem; display:flex; align-items:center; gap:.6rem; color:var(--text); }
+  .section-title::after { content:''; flex:1; height:1px; background:var(--border2); }
+  .products-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:.85rem; }
+
+  /* CARD */
+  .product-card { background:var(--card); border:1px solid var(--border); border-radius:16px; overflow:hidden; transition:transform .22s,box-shadow .22s,border-color .22s; cursor:pointer; position:relative; animation:fadeUp .35s ease both; box-shadow:var(--shadow); }
+  .product-card:hover { transform:translateY(-5px); box-shadow:var(--shadow-hover); border-color:var(--border2); }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+
+  .card-img { width:100%; aspect-ratio:1; overflow:hidden; background:#f9f7f5; display:flex; align-items:center; justify-content:center; position:relative; }
+  .card-img img { width:100%; height:100%; object-fit:contain; padding:.5rem; transition:transform .3s; }
+  .product-card:hover .card-img img { transform:scale(1.05); }
+  .img-fallback { font-size:3rem; display:none; align-items:center; justify-content:center; width:100%; height:100%; }
+
+  .card-body { padding:.7rem .75rem .8rem; }
+  .card-store { display:inline-flex; align-items:center; gap:.25rem; font-size:.68rem; font-weight:700; padding:.18rem .5rem; border-radius:50px; margin-bottom:.4rem; text-transform:uppercase; letter-spacing:.04em; }
+  .store-amazon  { background:#fff3e0; color:var(--amazon); }
+  .store-temu    { background:#fdecea; color:var(--temu); }
+  .store-ali     { background:#fff0e6; color:var(--ali); }
+  .store-miravia { background:#ede9fe; color:var(--miravia); }
+
+  .card-title { font-size:.8rem; font-weight:500; line-height:1.38; color:var(--text); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; margin-bottom:.55rem; min-height:2.2em; }
+  .card-prices { display:flex; align-items:center; gap:.4rem; flex-wrap:wrap; margin-bottom:.65rem; }
+  .price-now { font-family:'Syne',sans-serif; font-weight:800; font-size:1.1rem; color:var(--accent); }
+  .price-old { font-size:.75rem; color:var(--muted); text-decoration:line-through; }
+  .discount-badge { background:var(--accent); color:white; font-size:.67rem; font-weight:700; padding:.15rem .4rem; border-radius:5px; }
+  .card-btn { display:block; width:100%; padding:.52rem; background:var(--text); color:white; text-align:center; border-radius:10px; font-size:.8rem; font-weight:600; text-decoration:none; transition:background .2s,transform .1s; border:none; cursor:pointer; font-family:'DM Sans',sans-serif; }
+  .card-btn:hover { background:var(--accent); transform:scale(.98); }
+
+  .star-badge { position:absolute; top:.5rem; right:.5rem; background:rgba(255,255,255,.92); border:1px solid var(--border); border-radius:50px; padding:.18rem .45rem; font-size:.68rem; color:#92400e; font-weight:600; }
+  .hot-badge { position:absolute; top:.5rem; left:.5rem; background:var(--accent); color:white; font-size:.63rem; font-weight:700; padding:.18rem .45rem; border-radius:5px; text-transform:uppercase; letter-spacing:.05em; z-index:2; }
+
+  .loader { text-align:center; padding:3rem; color:var(--muted); font-size:.9rem; grid-column:1/-1; }
+
+  footer { border-top:1px solid var(--border); padding:2rem 1rem; text-align:center; color:var(--muted); font-size:.78rem; line-height:1.9; margin-top:2rem; background:white; }
+  footer a { color:var(--accent); text-decoration:none; }
+  footer strong { color:var(--text); }
+
+  @media(max-width:480px) { .products-grid{grid-template-columns:repeat(2,1fr);gap:.6rem;} .logo{font-size:1.15rem;} }
+  @media(min-width:640px) { .products-grid{grid-template-columns:repeat(auto-fill,minmax(185px,1fr));} }
+  @media(min-width:1024px){ .products-grid{grid-template-columns:repeat(auto-fill,minmax(210px,1fr));} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">Ofertas<span>IA</span> 🔥</div>
+    <div class="search-wrap">
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="text" id="searchInput" placeholder="Buscar productos...">
+    </div>
+  </div>
+</header>
+
+<div class="hero">
+  <h1>Las mejores ofertas de<br><em>España en un solo lugar</em></h1>
+  <p>Amazon · Temu · AliExpress · Miravia — actualizadas cada día</p>
+  <div class="store-badges">
+    <span class="badge all active"  onclick="filterStore('all',this)">🔥 Todas</span>
+    <span class="badge amazon"      onclick="filterStore('amazon',this)">📦 Amazon</span>
+    <span class="badge temu"        onclick="filterStore('temu',this)">🛍️ Temu</span>
+    <span class="badge ali"         onclick="filterStore('ali',this)">🌐 AliExpress</span>
+    <span class="badge miravia"     onclick="filterStore('miravia',this)">✨ Miravia</span>
+  </div>
+</div>
+
+<div class="filters-bar">
+  <span class="filter-chip active" onclick="filterCat('all',this)">Todo</span>
+  <span class="filter-chip" onclick="filterCat('electronica',this)">📱 Electrónica</span>
+  <span class="filter-chip" onclick="filterCat('hogar',this)">🏠 Hogar</span>
+  <span class="filter-chip" onclick="filterCat('moda',this)">👗 Moda</span>
+  <span class="filter-chip" onclick="filterCat('belleza',this)">💄 Belleza</span>
+  <span class="filter-chip" onclick="filterCat('deporte',this)">⚽ Deporte</span>
+  <span class="filter-chip" onclick="filterCat('jardin',this)">🌿 Jardín</span>
+  <span class="filter-chip" onclick="filterCat('cocina',this)">🍳 Cocina</span>
+  <span class="filter-chip" onclick="filterCat('juguetes',this)">🧸 Juguetes</span>
+  <span class="filter-chip" onclick="filterCat('mascotas',this)">🐾 Mascotas</span>
+</div>
+
+<div class="stats-bar">
+  <span>Mostrando <strong id="countText">0</strong> productos</span>
+  <select class="sort-select" id="sortSelect" onchange="sortProducts()">
+    <option value="hot">🔥 Más populares</option>
+    <option value="desc">💸 Mayor descuento</option>
+    <option value="low">💰 Precio menor a mayor</option>
+    <option value="high">💎 Precio mayor a menor</option>
+  </select>
+</div>
+
+<div class="affiliate-notice" style="margin:0.7rem 1rem 0;">
+  ℹ️ Contiene enlaces de afiliado. Al comprar a través de ellos podemos recibir una comisión sin coste adicional para ti.
+</div>
+
+<div class="grid-wrap">
+  <div class="section-title">🔥 Ofertas destacadas</div>
+  <div class="products-grid" id="productsGrid"><div class="loader">Cargando...</div></div>
+</div>
+
+<footer>
+  <strong>OfertasIA</strong> — Las mejores ofertas de Amazon, Temu, AliExpress y Miravia para España<br>
+  Como Asociado de Amazon obtenemos ingresos por las compras adscritas que cumplen los requisitos. ID: <strong>iaexplorer-21</strong><br>
+  <a href="#">Aviso Legal</a> · <a href="#">Privacidad</a> · <a href="#">Cookies</a>
+</footer>
+
+<script>
+// ============================================================
+// PRODUCTOS — añade/edita aquí tus productos y links reales
+// Las imágenes usan URLs directas; si fallan se muestra emoji
+// ============================================================
+const TEMU_ID = 'uhr6xqgmo66';
+const AMAZ_ID = 'iaexplorer-21';
+
+const temuLink = cat => `https://www.temu.com/es-es/search_result.html?search_key=${encodeURIComponent(cat)}&refer_page_name=home&_x_sessn_id=${TEMU_ID}`;
+const amazLink = q   => `https://www.amazon.es/s?k=${encodeURIComponent(q)}&tag=${AMAZ_ID}`;
+
+const PRODUCTS = [
+  // ---- AMAZON ----
+  { id:1, store:'amazon', cat:'electronica',
+    title:'Auriculares Bluetooth Cancelación Ruido Activa',
+    img:'https://m.media-amazon.com/images/I/61cgQnLgBqL._AC_SL400_.jpg',
+    price:29.99, oldPrice:59.99, rating:4.5, reviews:2341, hot:true,
+    link: amazLink('auriculares bluetooth cancelacion ruido') },
+  { id:2, store:'amazon', cat:'hogar',
+    title:'Robot Aspirador con Mapeo Inteligente WiFi',
+    img:'https://m.media-amazon.com/images/I/71YkxCNkHiL._AC_SL400_.jpg',
+    price:89.99, oldPrice:159.99, rating:4.3, reviews:891, hot:true,
+    link: amazLink('robot aspirador wifi mapeo') },
+  { id:3, store:'amazon', cat:'cocina',
+    title:'Freidora de Aire 5.5L Digital sin Aceite',
+    img:'https://m.media-amazon.com/images/I/71pTkCmZb5L._AC_SL400_.jpg',
+    price:49.95, oldPrice:89.95, rating:4.7, reviews:5621, hot:false,
+    link: amazLink('freidora aire 5.5l digital') },
+  { id:4, store:'amazon', cat:'electronica',
+    title:'Smartwatch con GPS Monitor Cardíaco SpO2',
+    img:'https://m.media-amazon.com/images/I/71XSxdHpGlL._AC_SL400_.jpg',
+    price:39.99, oldPrice:79.99, rating:4.2, reviews:1230, hot:false,
+    link: amazLink('smartwatch gps monitor cardiaco') },
+  { id:5, store:'amazon', cat:'belleza',
+    title:'Plancha de Pelo Profesional Titanio Iónica',
+    img:'https://m.media-amazon.com/images/I/51yGx3o3MmL._AC_SL400_.jpg',
+    price:24.99, oldPrice:49.99, rating:4.4, reviews:3102, hot:false,
+    link: amazLink('plancha pelo profesional titanio') },
+  { id:6, store:'amazon', cat:'deporte',
+    title:'Pack 5 Bandas Elásticas Fitness Resistencias',
+    img:'https://m.media-amazon.com/images/I/71gTPgACEzL._AC_SL400_.jpg',
+    price:12.99, oldPrice:24.99, rating:4.6, reviews:8900, hot:true,
+    link: amazLink('bandas elasticas fitness resistencia') },
+  { id:7, store:'amazon', cat:'hogar',
+    title:'Lámpara LED Escritorio USB Regulable 3 Modos',
+    img:'https://m.media-amazon.com/images/I/61JtGtHYqSL._AC_SL400_.jpg',
+    price:18.99, oldPrice:35.99, rating:4.5, reviews:4201, hot:false,
+    link: amazLink('lampara led escritorio usb') },
+  { id:8, store:'amazon', cat:'mascotas',
+    title:'Fuente de Agua para Mascotas con Filtro 2.5L',
+    img:'https://m.media-amazon.com/images/I/61n8YSIXTAL._AC_SL400_.jpg',
+    price:19.99, oldPrice:39.99, rating:4.6, reviews:7230, hot:true,
+    link: amazLink('fuente agua gatos perros filtro') },
+
+  // ---- TEMU ----
+  { id:9,  store:'temu', cat:'moda',
+    title:'Zapatillas Deportivas Mujer Ligeras Transpirables',
+    img:'https://img.ltwebstatic.com/images3_pi/2023/07/19/168971568949c0f8c6b45dbba1b1e0d96bc3df7cc3_thumbnail_405x552.webp',
+    price:15.99, oldPrice:35.00, rating:4.1, reviews:4201, hot:true,
+    link: temuLink('zapatillas deportivas mujer') },
+  { id:10, store:'temu', cat:'hogar',
+    title:'Set 12 Organizadores para Cajones de Bambú',
+    img:'https://img.ltwebstatic.com/images3_pi/2023/06/20/168731246534f7c7c9b1534adb88b9f68bb2a2ee5b_thumbnail_405x552.webp',
+    price:9.99, oldPrice:22.00, rating:4.3, reviews:1876, hot:false,
+    link: temuLink('organizadores cajones bambu') },
+  { id:11, store:'temu', cat:'belleza',
+    title:'Set 15 Pinceles Maquillaje Profesional con Estuche',
+    img:'https://img.ltwebstatic.com/images3_pi/2024/01/24/1706076296d9ec8cce9a0e51f34773e8c4f1fd0dc1_thumbnail_405x552.webp',
+    price:7.99, oldPrice:19.99, rating:4.0, reviews:6543, hot:false,
+    link: temuLink('pinceles maquillaje profesional') },
+  { id:12, store:'temu', cat:'jardin',
+    title:'Sistema Riego Automático Plantas Interior 12 Macetas',
+    img:'https://img.ltwebstatic.com/images3_pi/2023/09/26/16957038078bd0def4d5c1a72e8ea85d9cf2b21cef_thumbnail_405x552.webp',
+    price:13.50, oldPrice:28.00, rating:4.2, reviews:2310, hot:true,
+    link: temuLink('riego automatico plantas') },
+  { id:13, store:'temu', cat:'electronica',
+    title:'Mini Ventilador USB Portátil 3 Velocidades Silencioso',
+    img:'https://img.ltwebstatic.com/images3_pi/2023/07/04/168843478454e7e72f58f92424ae7af617ba7edcc4_thumbnail_405x552.webp',
+    price:6.99, oldPrice:14.99, rating:4.4, reviews:5102, hot:false,
+    link: temuLink('ventilador usb portatil') },
+  { id:14, store:'temu', cat:'juguetes',
+    title:'Set Bloques Construcción Compatible 500 Piezas Ciudad',
+    img:'https://img.ltwebstatic.com/images3_pi/2023/05/15/168420368977e2f98f83c34d1b5c1e8a5f6c2b3d9e_thumbnail_405x552.webp',
+    price:11.99, oldPrice:25.00, rating:4.1, reviews:3201, hot:false,
+    link: temuLink('bloques construccion ciudad') },
+
+  // ---- ALIEXPRESS ----
+  { id:15, store:'ali', cat:'electronica',
+    title:'Mini Proyector Portátil 1080P WiFi Bluetooth Android',
+    img:'https://ae01.alicdn.com/kf/S8e1a0a5b5e1240329e1acde7de6fcac3z.jpg_480x480.jpg',
+    price:59.99, oldPrice:120.00, rating:4.3, reviews:2103, hot:true,
+    link:'https://s.click.aliexpress.com/e/_DdQxV7T' },
+  { id:16, store:'ali', cat:'hogar',
+    title:'Humidificador Ultrasónico 4L Aromaterapia LED 7 Colores',
+    img:'https://ae01.alicdn.com/kf/S3c1de9d16fa44e2b8bb19f9f37f5ff54O.jpg_480x480.jpg',
+    price:22.99, oldPrice:48.00, rating:4.5, reviews:8921, hot:false,
+    link:'https://s.click.aliexpress.com/e/_DdQxV7T' },
+  { id:17, store:'ali', cat:'moda',
+    title:'Reloj Hombre Cuarzo Militar Resistente al Agua 50m',
+    img:'https://ae01.alicdn.com/kf/Sb9d34ddd1be3417aa1c9d86428e86028J.jpg_480x480.jpg',
+    price:18.50, oldPrice:40.00, rating:4.2, reviews:4512, hot:false,
+    link:'https://s.click.aliexpress.com/e/_DdQxV7T' },
+  { id:18, store:'ali', cat:'belleza',
+    title:'Masajeador Facial LED Radiofrecuencia Antiarrugas',
+    img:'https://ae01.alicdn.com/kf/S6c5d4e3f2a1b40c7b8e9f0a1b2c3d4e5L.jpg_480x480.jpg',
+    price:31.99, oldPrice:70.00, rating:4.4, reviews:1890, hot:true,
+    link:'https://s.click.aliexpress.com/e/_DdQxV7T' },
+  { id:19, store:'ali', cat:'electronica',
+    title:'Cámara Seguridad WiFi 1080P Exterior Visión Nocturna IP66',
+    img:'https://ae01.alicdn.com/kf/S0c4b4a9b2e5242ff8a1c0f7a2c3b4567K.jpg_480x480.jpg',
+    price:27.99, oldPrice:55.00, rating:4.1, reviews:3401, hot:false,
+    link:'https://s.click.aliexpress.com/e/_DdQxV7T' },
+  { id:20, store:'ali', cat:'mascotas',
+    title:'Collar Anti-Pulgas Gatos Perros Repelente Natural 8 Meses',
+    img:'https://ae01.alicdn.com/kf/Sa1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6L.jpg_480x480.jpg',
+    price:8.99, oldPrice:20.00, rating:4.3, reviews:6712, hot:false,
+    link:'https://s.click.aliexpress.com/e/_DdQxV7T' },
+
+  // ---- MIRAVIA ----
+  { id:21, store:'miravia', cat:'belleza',
+    title:'Sérum Vitamina C Antimancha Piel Mixta 30ml',
+    img:'https://images.miravia.es/cms/product/beauty/serum-vitamina-c.jpg',
+    price:14.99, oldPrice:32.00, rating:4.5, reviews:2341, hot:true,
+    link:'https://www.miravia.es/promotion/search?keywords=serum+vitamina+c' },
+  { id:22, store:'miravia', cat:'moda',
+    title:'Bolso Mujer Piel Sintética Bandolera Elegante',
+    img:'https://images.miravia.es/cms/product/fashion/bolso-bandolera.jpg',
+    price:22.99, oldPrice:49.99, rating:4.3, reviews:1102, hot:false,
+    link:'https://www.miravia.es/pr
